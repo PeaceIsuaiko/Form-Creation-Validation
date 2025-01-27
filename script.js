@@ -15,17 +15,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const userEmailError = document.getElementById('useremailerror');
     const userPasswordError = document.getElementById('userpassworderror');
 
-    // Trimmed values
-    const userNameValue = userName.value.trim();
-    const emailValue = userEmail.value.trim();
-    const passwordValue = userPassword.value.trim();
-
-    // Initialize an array to store error messages
-    let messages = [];
+    // Initialize validation status and messages
     let isValid = true;
+    let messages = [];
 
     // Username Validation
-    if (userName.length < 3 || userName.length > 12) {
+    if (userName.value.trim().length < 3 || userName.value.trim().length > 12) {
       const error = "Username must be between 3 and 12 characters.";
       userNameError.textContent = error;
       messages.push(error);
@@ -36,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Email Validation
     const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-    if (!emailRegex.test(emailValue)) {
+    if (!emailRegex.test(userEmail.value.trim())) {
       const error = "Invalid email format.";
       userEmailError.textContent = error;
       messages.push(error);
@@ -46,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Password Validation
-    if (passwordValue.length < 7) {
+    if (userPassword.value.trim().length < 7) {
       const error = "Password must be at least 7 characters long.";
       userPasswordError.textContent = error;
       messages.push(error);
