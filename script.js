@@ -1,63 +1,47 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const form = document.getElementById('registration-form');
-  const feedbackDiv = document.getElementById('form-feedback');
+document.addEventListener("DOMContentLoaded", function () {
+  // Select the form and feedback division
+  const form = document.getElementById("registration-form");
+  const feedbackDiv = document.getElementById("form-feedback");
 
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
+  // Add event listener for form submission
+  form.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent form submission
 
-    // Input elements
-    const userName = document.getElementById('username');
-    const userEmail = document.getElementById('email');
-    const userPassword = document.getElementById('password');
+    // Retrieve and trim input values
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-    // Error message elements
-    const userNameError = document.getElementById('usernameerror');
-    const userEmailError = document.getElementById('useremailerror');
-    const userPasswordError = document.getElementById('userpassworderror');
-
-    // Initialize validation status and messages
+    // Initialize validation status and error messages
     let isValid = true;
     let messages = [];
 
-    // Username Validation
-    if (userName.value.trim().length < 3 || userName.value.trim().length > 12) {
-      const error = "Username must be between 3 and 12 characters.";
-      userNameError.textContent = error;
-      messages.push(error);
+    // Username validation
+    if (username.length < 3) {
       isValid = false;
-    } else {
-      userNameError.textContent = "";
+      messages.push("Username must be at least 3 characters long.");
     }
 
-    // Email Validation
-    const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-    if (!emailRegex.test(userEmail.value.trim())) {
-      const error = "Invalid email format.";
-      userEmailError.textContent = error;
-      messages.push(error);
+    // Email validation
+    if (!email.includes("@") || !email.includes(".")) {
       isValid = false;
-    } else {
-      userEmailError.textContent = "";
+      messages.push("Email must include '@' and '.'.");
     }
 
-    // Password Validation
-    if (userPassword.value.trim().length < 7) {
-      const error = "Password must be at least 7 characters long.";
-      userPasswordError.textContent = error;
-      messages.push(error);
+    // Password validation
+    if (password.length < 8) {
       isValid = false;
-    } else {
-      userPasswordError.textContent = "";
+      messages.push("Password must be at least 8 characters long.");
     }
 
-    // Feedback display
-    feedbackDiv.style.display = 'block';
+    // Display feedback
+    feedbackDiv.style.display = "block";
     if (isValid) {
       feedbackDiv.textContent = "Registration successful!";
-      feedbackDiv.style.color = "#28a745";
+      feedbackDiv.style.color = "#28a745"; // Green for success
     } else {
       feedbackDiv.innerHTML = messages.join("<br>");
-      feedbackDiv.style.color = "#dc3545";
+      feedbackDiv.style.color = "#dc3545"; // Red for errors
     }
   });
 });
