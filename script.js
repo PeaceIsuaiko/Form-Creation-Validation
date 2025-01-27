@@ -20,11 +20,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const emailValue = userEmail.value.trim();
     const passwordValue = userPassword.value.trim();
 
+    // Initialize an array to store error messages
+    let messages = [];
     let isValid = true;
 
     // Username Validation
     if (userNameValue.length < 3 || userNameValue.length > 12) {
-      userNameError.textContent = "Username must be between 3 and 12 characters.";
+      const error = "Username must be between 3 and 12 characters.";
+      userNameError.textContent = error;
+      messages.push(error);
       isValid = false;
     } else {
       userNameError.textContent = "";
@@ -33,7 +37,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Email Validation
     const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
     if (!emailRegex.test(emailValue)) {
-      userEmailError.textContent = "Invalid email format.";
+      const error = "Invalid email format.";
+      userEmailError.textContent = error;
+      messages.push(error);
       isValid = false;
     } else {
       userEmailError.textContent = "";
@@ -41,7 +47,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Password Validation
     if (passwordValue.length < 7) {
-      userPasswordError.textContent = "Password must be at least 7 characters long.";
+      const error = "Password must be at least 7 characters long.";
+      userPasswordError.textContent = error;
+      messages.push(error);
       isValid = false;
     } else {
       userPasswordError.textContent = "";
@@ -53,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
       feedbackDiv.textContent = "Registration successful!";
       feedbackDiv.style.color = "#28a745";
     } else {
-      feedbackDiv.textContent = "Please correct the errors above.";
+      feedbackDiv.innerHTML = messages.join("<br>");
       feedbackDiv.style.color = "#dc3545";
     }
   });
